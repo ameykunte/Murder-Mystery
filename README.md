@@ -17,13 +17,13 @@ To play this game, you will need a C++ compiler installed on your system. Some p
 1. Clone the repository to your local machine:
 
    ```
-   git clone https://github.com/your-username/murder-mystery.git
+   git clone https://github.com/ameykunte/Murder-Mystery.git
    ```
 
 2. Navigate to the project directory:
 
    ```
-   cd murder-mystery
+   cd Murder-Mystery
    ```
 
 3. Compile the game using your C++ compiler. For example, if you are using GCC, you can run:
