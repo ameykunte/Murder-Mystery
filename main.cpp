@@ -23,20 +23,27 @@ int main() {
     // Define items
     map<string, Item> items = {
         {"note", {"note", "A cryptic note that might hold a clue to the murder."}},
-        {"key", {"key", "A small key found in the victim's compartment."}}
+        {"key", {"key", "A small key found in the victim's compartment."}},
+        {"watch", {"watch", "A gold watch that seems out of place."}},
+        {"diary", {"diary", "A diary belonging to another passenger. It contains some interesting entries."}}
     };
 
     // Define the game world
     vector<Room> rooms = {
         {"You are in your compartment on the Orient Express. The train has stopped due to snow. There is a door to the east.", {{"east", 1}}, {}},
         {"You are in the corridor. There is a suspicious-looking passenger here. Doors lead west and east.", {{"west", 0}, {"east", 2}}, {"note"}},
-        {"You are in the dining car. The atmosphere is tense. There is a door to the west.", {{"west", 1}}, {"key"}},
-        {"You are in the victim's compartment. There is a locked drawer here. There is a door to the east.", {{"east", 2}}, {}}
+        {"You are in the dining car. The atmosphere is tense. There is a door to the west and another to the east.", {{"west", 1}, {"east", 3}}, {"key"}},
+        {"You are in the victim's compartment. There is a locked drawer here. There is a door to the west.", {{"west", 2}}, {}},
+        {"You are in the library. There are many books and a comfortable chair. There is a door to the west.", {{"west", 2}}, {"diary"}},
+        {"You are in a secret compartment. It's dark and cramped. There is a door to the south.", {{"south", 2}}, {"watch"}}
     };
 
     int currentRoom = 0;
     set<string> inventory;
     bool murderSolved = false;
+
+    // Easter egg
+    bool easterEggFound = false;
 
     // Game loop
     while (!murderSolved) {
@@ -66,6 +73,15 @@ int main() {
                 murderSolved = true;
             } else {
                 cout << "You don't have enough evidence to solve the murder yet." << endl;
+            }
+        } else if (command == "read diary" && inventory.count("diary")) {
+            cout << "The diary contains entries about a mysterious figure seen lurking around the train. It seems like a red herring." << endl;
+        } else if (command == "examine watch" && inventory.count("watch")) {
+            if (!easterEggFound) {
+                cout << "The watch has an engraving: 'Time is the key.' This might be a clue or just an Easter egg." << endl;
+                easterEggFound = true;
+            } else {
+                cout << "It's just a watch with a cryptic engraving." << endl;
             }
         } else if (command.substr(0, 4) == "take") {
             string itemName = command.substr(5);
